@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>世界の国旗クイズ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <h1>世界の国旗クイズ</h1>
+
+        <div class="top-bar">
+            <div>スコア: <span id="score">0</span></div>
+            <div>問題: <span id="qnum">1</span> / <span id="total">10</span></div>
+            <div>残り時間: <span id="timer">0</span>s</div>
+        </div>
+
+        <div class="controls">
+            <div>
+                難易度:
+                <select id="difficulty">
+                    <option value="all">すべて</option>
+                    <option value="easy">かんたん</option>
+                    <option value="normal">ふつう</option>
+                    <option value="hard">むずかしい</option>
+                </select>
+            </div>
+            <div>
+                表示言語:
+                <select id="language">
+                    <option value="ja">日本語</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="ru">Русский</option>
+                    <option value="pt">Português</option>
+                    <option value="it">Italiano</option>
+                    <option value="ko">한국어</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="flag-box">
+            <img id="flag-img" src="" alt="flag">
+        </div>
+
+        <div id="info">
+            <div>国名: <span id="info-name">???</span></div>
+            <div>首都: <span id="info-capital">???</span></div>
+            <div>人口: <span id="info-pop">???</span></div>
+            <div>言語: <span id="info-lang">???</span></div>
+        </div>
+
+        <div id="choices"></div>
+
+        <button id="next" disabled>次の問題へ</button>
+        <div id="result"></div>
+
+        <div id="ranking">
+            <h2>ベストスコア</h2>
+            <div id="best-text">まだ記録がありません</div>
+        </div>
+    </div>
+
+    <div id="confetti"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
