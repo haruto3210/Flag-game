@@ -6,6 +6,13 @@ const TIME_LIMIT = 15;
 
 const COUNTRIES_JSON_PATH = "data/countries.json";
 const FLAGS_DIR_PATH = "data/flags/";
+const SOUND_DIR = "data/sounds/";
+
+// 効果音
+const seCorrect = new Audio(SOUND_DIR + "correct.mp3");
+const seWrong   = new Audio(SOUND_DIR + "wrong.mp3");
+const seClick   = new Audio(SOUND_DIR + "click.mp3");
+const seHover   = new Audio(SOUND_DIR + "hover.mp3");
 
 // ===============================
 // 変数
@@ -36,9 +43,6 @@ const infoCapital = document.getElementById("info-capital");
 const infoPop = document.getElementById("info-pop");
 const infoLang = document.getElementById("info-lang");
 
-// ===============================
-// 初期表示
-// ===============================
 totalEl.textContent = TOTAL_QUESTIONS;
 
 // ===============================
@@ -131,10 +135,8 @@ function nextQuestion() {
     const correct = pool[Math.floor(Math.random() * pool.length)];
     currentAnswer = correct.cca2;
 
-    // 国旗
     flagImg.src = FLAGS_DIR_PATH + correct.cca2.toLowerCase() + ".png";
 
-    // 選択肢
     let options = shuffle(pool).slice(0, 4);
     if (!options.includes(correct)) options[0] = correct;
     options = shuffle(options);
@@ -145,7 +147,14 @@ function nextQuestion() {
         btn.className = "choice";
         btn.textContent = nameInLang(c, lang);
         btn.dataset.code = c.cca2;
+
+        btn.addEventListener("mouseenter", () => {
+            seHover.currentTime = 0;
+            seHover.play();
+        });
+
         btn.addEventListener("click", () => selectAnswer(btn, c.cca2));
+
         choicesEl.appendChild(btn);
     });
 
@@ -177,9 +186,13 @@ function selectAnswer(btn, code) {
         score++;
         scoreEl.textContent = score;
         resultEl.textContent = "正解！";
+        seCorrect.currentTime = 0;
+        seCorrect.play();
     } else {
         btn.classList.add("wrong");
         resultEl.textContent = "不正解…";
+        seWrong.currentTime = 0;
+        seWrong.play();
     }
 
     nextBtn.disabled = false;
@@ -225,10 +238,13 @@ function resetGame() {
 }
 
 // ===============================
-// 次の問題へ（安定版）
+// 次の問題へ
 // ===============================
 nextBtn.addEventListener("click", () => {
     if (!answered) return;
+
+    seClick.currentTime = 0;
+    seClick.play();
 
     qnum++;
     if (qnum > TOTAL_QUESTIONS) {
